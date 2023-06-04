@@ -35,7 +35,6 @@ create_board(){
   draw_board
 }
 
-
 # функция, рисующая границы поля
 draw_border(){
   printf "|"
@@ -180,71 +179,6 @@ ISCURSOR=1
   fi
 }
 
-# main цикл
-start_game(){
-  while :
-  do
-    read -n 1 -s
-    case $REPLY in
-      # Change tool
-      1)
-        CUR_TOOL=1
-        use_tool
-      ;;
-      2)
-        CUR_TOOL=2
-        use_tool
-      ;;
-      3)
-        CUR_TOOL=3
-        use_tool
-      ;;
-      4)
-        CUR_TOOL=4
-      ;;
-      "")
-        if [[ $CUR_TOOL = "3" ]]
-        then
-          fill $X $Y
-        fi
-      ;;
-
-      # show/hide cursor
-      c)
-        hide_cursor
-      ;;
-      # quit
-      q)
-        quit_game
-      ;;
-      # change color
-      r)
-        change_current_color
-      ;;
-
-      # navigation
-      w)
-        move_up
-        use_tool
-      ;;
-      s)
-        move_down
-        use_tool
-      ;;
-      a)
-        move_left
-        use_tool
-      ;;
-      d)
-        move_right
-        use_tool
-      ;;
-    esac
-
-  draw_board
-  done
-}
-
 # Функция изменения цвета
 change_current_color(){
     read -n 1 -s -p "Which symbol to use for drawing? "
@@ -335,6 +269,73 @@ fill(){
     fill $x-1 $y
   fi
 }
+
+# main цикл
+start_game(){
+  while :
+  do
+    read -n 1 -s
+    case $REPLY in
+      # Change tool
+      1)
+        CUR_TOOL=1
+        use_tool
+      ;;
+      2)
+        CUR_TOOL=2
+        use_tool
+      ;;
+      3)
+        CUR_TOOL=3
+        use_tool
+      ;;
+      4)
+        CUR_TOOL=4
+      ;;
+      "")
+        if [[ $CUR_TOOL = "3" ]]
+        then
+          fill $X $Y
+        fi
+      ;;
+
+      # show/hide cursor
+      c)
+        hide_cursor
+      ;;
+      # quit
+      q)
+        quit_game
+      ;;
+      # change color
+      r)
+        change_current_color
+      ;;
+
+      # navigation
+      w)
+        move_up
+        use_tool
+      ;;
+      s)
+        move_down
+        use_tool
+      ;;
+      a)
+        move_left
+        use_tool
+      ;;
+      d)
+        move_right
+        use_tool
+      ;;
+    esac
+
+  draw_board
+  done
+}
+
+
 
 # Запуск Baint
 create_board
