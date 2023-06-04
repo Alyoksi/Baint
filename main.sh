@@ -12,6 +12,7 @@ WIDTH=75
 HEIGTH=25
 
 # Flags
+# Показывать ли курсор?
 ISCURSOR=1
 
 # Текущий цвет
@@ -21,9 +22,10 @@ CUR_COL="@"
 # 1 - Кисточка
 # 2 - Ластик
 # 3 - Заливка
-# 4 - Без инструмента/парящий режим
+# 4 - Без инструмента/парящий режим (стартовый инструмент)
 CUR_TOOL="4"
 
+# функция, создающая поле
 create_board(){
   M=()
   for((i=0;i<WIDTH*HEIGTH;i++))
@@ -33,6 +35,8 @@ create_board(){
   draw_board
 }
 
+
+# функция, рисующая границы поля
 draw_border(){
   printf "|"
   for((i=0;i<WIDTH;i++))
@@ -42,6 +46,7 @@ draw_border(){
   printf "|\n"
 }
 
+# функция, рисующая границы окон инструментов
 draw_menu_border_line(){
   if [[ $CUR_TOOL = "1" ]]
   then
@@ -71,6 +76,7 @@ draw_menu_border_line(){
   printf "|-----------------|\n"
 }
 
+# функция, рисующая названия инструментов
 draw_menu_name_line(){
   printf "|1.Brush| "
   printf "|2.Eraser| "
@@ -78,12 +84,15 @@ draw_menu_name_line(){
   printf "|4.Hover| "
   printf "|Current symbol: %s|\n" "$CUR_COL"
 }
+
+# функция, рисующая только верхнее меню
 draw_tools(){
   draw_menu_border_line
   draw_menu_name_line
   draw_menu_border_line
 }
 
+# функция, рисующая всё поле
 draw_board(){
   clear
 
@@ -144,6 +153,7 @@ quit_game(){
     done
 }
 
+# функции, отвечающие за движение курсора
 move_up(){
   if [[ $Y-1 -ge 0 ]]
   then
@@ -170,6 +180,7 @@ ISCURSOR=1
   fi
 }
 
+# main цикл
 start_game(){
   while :
   do
@@ -234,6 +245,7 @@ start_game(){
   done
 }
 
+# Функция изменения цвета
 change_current_color(){
     read -n 1 -s -p "Which symbol to use for drawing? "
     if [[ $REPLY != [a-zA-Z~!@#$%^\&*()\[\]\{\}_+\-=\|:\;\'\"/?.,\<\>\\] ]]
@@ -254,6 +266,8 @@ change_current_color(){
       fi
     done
 }
+
+# Функция скрытия/показывания курсора
 hide_cursor(){
   if [[ $ISCURSOR -eq 1 ]]
   then
@@ -262,6 +276,8 @@ hide_cursor(){
     ISCURSOR=1
   fi
 }
+
+# Функция использование выбранного инструмента
 use_tool(){
   if [[ $CUR_TOOL = "1" ]]
   then
@@ -277,12 +293,17 @@ use_tool(){
   fi
 }
 
+# Функция закраски текущей клетки
 draw(){
   M[WIDTH*Y+X]="$CUR_COL"
 }
+
+# Функция чистки(?) текущей клетки
 erase(){
   M[WIDTH*Y+X]=" "
 }
+
+# Функция заливки из текущей клетки
 fill(){
   local x=$1
   local y=$2
@@ -315,5 +336,6 @@ fill(){
   fi
 }
 
+# Запуск Baint
 create_board
 start_game
