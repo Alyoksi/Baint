@@ -8,8 +8,8 @@ X=0
 Y=0
 
 # Размеры поля
-WIDTH=75
-HEIGTH=25
+WIDTH=70
+HEIGTH=20
 
 # Flags
 # Показывать ли курсор?
