@@ -1,5 +1,7 @@
 #!/bin/bash
 
+tput reset
+tput civis #~ отключаем курсор
 # Обозначение курсора
 CURSOR="#"
 
@@ -143,7 +145,10 @@ quit_game(){
     while :
     do
         case $REPLY in
-            y|Y) exit
+            y|Y) 
+                tput reset
+                tput cnorm #~ включаем курсор
+                exit
             ;;
             n|N) return
             ;;
