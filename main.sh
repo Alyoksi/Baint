@@ -193,7 +193,7 @@ change_current_color(){
     while :
     do
       read -n 1 -s
-      if [[ $REPLY = [a-zA-Z] ]]
+      if [[ $REPLY = [a-zA-Z~!@#$%^\&*()\[\]\{\}_+\-=\|:\;\'\"/?.,\<\>\\] ]]
       then
         CUR_COL="$REPLY"
         break
